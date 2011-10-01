@@ -1,0 +1,11 @@
+cpuset (1.5.6-2) unstable; urgency=low
+
+  * Rebuilt to compensate for poor timing of upload.
+
+ -- Roberto C. Sanchez <roberto@connexer.com>  Sat, 01 Oct 2011 17:08:21 -0400
+
+cpuset (1.5.6-1) unstable; urgency=low
+
+  * Initial release (Closes: 639495)
+
+ -- Roberto C. Sanchez <roberto@connexer.com>  Sat, 27 Aug 2011 13:37:24 -0400

@@ -1,0 +1,17 @@
+Author: Roberto C. Sanchez <roberto@connexer.com>
+Description: Fix the location of installed documentation and keep duplicate license file from being installed.
+diff -uNr cpuset-1.5.6.orig//setup.py cpuset-1.5.6/setup.py
+--- cpuset-1.5.6.orig//setup.py	2010-02-11 15:23:58.000000000 -0500
++++ cpuset-1.5.6/setup.py	2011-08-27 14:42:50.000000000 -0400
+@@ -20,8 +20,8 @@
+     scripts = ['cset'],
+     packages = ['cpuset', 'cpuset.commands'],
+     data_files = [
+-		  ('share/doc/packages/cpuset', ['README', 'COPYING', 'AUTHORS', 'NEWS', 'INSTALL']),
+-		  ('share/doc/packages/cpuset', glob.glob('doc/*.html')),
+-		  ('share/doc/packages/cpuset', glob.glob('doc/*.txt')),
++		  ('share/doc/cpuset', ['README', 'AUTHORS', 'NEWS']),
++		  ('share/doc/cpuset', glob.glob('doc/*.html')),
++		  ('share/doc/cpuset', glob.glob('doc/*.txt')),
+ 	         ]
+     )

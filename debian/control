@@ -1,0 +1,18 @@
+Source: cpuset
+Maintainer: Roberto C. Sanchez <roberto@connexer.com>
+Section: python
+Priority: optional
+Build-Depends: debhelper (>= 7), python-support (>= 0.8.4), quilt
+Standards-Version: 3.9.2
+XS-Python-Version: current
+
+Package: cpuset
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+XB-Python-Version: ${python:Versions}
+Provides: ${python:Provides}
+Description: Allows manipluation of cpusets and provides higher level fun
+ Cpuset is a Python application to make using the cpusets facilities in the
+ Linux kernel easier. The actual included command is called cset and it allows
+ manipulation of cpusets on the system and provides higher level functions such
+ as implementation and control of a basic CPU shielding setup.

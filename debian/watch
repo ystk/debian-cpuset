@@ -1,0 +1,3 @@
+version=3
+
+http://googlecode.debian.net/p/cpuset/cpuset-(\d+.*)\.tar\.gz
