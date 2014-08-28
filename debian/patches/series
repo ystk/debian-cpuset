@@ -1,1 +1,2 @@
 01_fix_documentation_installation.patch
+02_prefix_in_case_filesystem_has_its_own_namespace.patch

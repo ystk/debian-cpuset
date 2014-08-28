@@ -1,3 +1,19 @@
+cpuset (1.5.6-4) unstable; urgency=low
+
+  * Update Standards-Version to 3.9.5 (no changes)
+  * Transition from python-support to dy-python
+
+ -- Roberto C. Sanchez <roberto@connexer.com>  Sat, 08 Mar 2014 19:00:41 -0500
+
+cpuset (1.5.6-3) unstable; urgency=low
+
+  * Include updated watch file.
+  * Update Standards-Version to 3.9.4 (no changes)
+  * Add Homepage field to debian/control
+  * Patch cset.py to account for filesystem prefixes (LP: #1028933, #1075997)
+
+ -- Roberto C. Sanchez <roberto@connexer.com>  Sat, 03 Aug 2013 11:28:50 -0400
+
 cpuset (1.5.6-2) unstable; urgency=low
 
   * Rebuilt to compensate for poor timing of upload.
