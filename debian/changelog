@@ -1,3 +1,9 @@
+cpuset (1.5.6-4+deb8u1) jessie; urgency=high
+
+  * Update filesystem namespace prefix patch (Closes: #796893)
+
+ -- Roberto C. Sanchez <roberto@connexer.com>  Tue, 13 Oct 2015 23:46:35 -0400
+
 cpuset (1.5.6-4) unstable; urgency=low
 
   * Update Standards-Version to 3.9.5 (no changes)

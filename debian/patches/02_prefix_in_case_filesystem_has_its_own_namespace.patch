@@ -1,7 +1,7 @@
 Author: Roberto C. Sanchez <roberto@connexer.com>
 Description: Account for filesystem namespace having its own prefix.  The updated file was downloaded from here: http://code.google.com/p/cpuset/issues/detail?id=10
---- cpuset.hg.orig/cpuset/cset.py
-+++ cpuset.hg/cpuset/cset.py
+--- cpuset.git.orig/cpuset/cset.py
++++ cpuset.git/cpuset/cset.py
 @@ -32,10 +32,13 @@
  class CpuSet(object):
      # sets is a class variable dict that keeps track of all 
@@ -17,7 +17,33 @@ Description: Account for filesystem namespace having its own prefix.  The update
  
      def __init__(self, path=None):
          log.debug("initializing CpuSet")
-@@ -104,12 +107,18 @@
+@@ -47,7 +50,16 @@
+             log.debug("finding all cpusets")
+             path = self.locate_cpusets()
+             CpuSet.basepath = path
+-            log.debug("creating root node at %s", path)
++            if not os.access(path + '/cpus', os.F_OK):
++                log.debug(path + "/cpus doesn't exist, trying to add the cpuset. prefix")
++                CpuSet.prefix = 'cpuset.'
++                if not os.access(path + '/cpuset.cpus', os.F_OK):
++                    # definitely not a cpuset directory
++                    str = '%s is not a cpuset directory' % (path)
++                    log.error(str)
++                    raise CpusetException(str)
++
++            log.debug("creating root node at %s with prefix '%s'", path, CpuSet.prefix)
+             self.__root = True
+             self.name = 'root'
+             self.path = '/'
+@@ -56,6 +68,7 @@
+                 del CpuSet.sets
+                 CpuSet.sets = {}
+             CpuSet.sets[self.path] = self
++
+             # bottom-up search otherwise links will not exist
+             log.debug("starting bottom-up discovery walk...")
+             for dir, dirs, files in os.walk(path, topdown=False):
+@@ -104,12 +117,18 @@
                  log.debug("the cpuset %s already exists, skipping", path)
                  self = CpuSet.sets[path]  # questionable....
                  return
@@ -41,7 +67,7 @@ Description: Account for filesystem namespace having its own prefix.  The update
              self.__root = False
              self.read_cpuset(path)
              CpuSet.sets[path] = self
-@@ -158,36 +167,36 @@
+@@ -158,36 +177,36 @@
          raise AttributeError, "deletion of properties not allowed"
  
      def getcpus(self): 
@@ -84,7 +110,7 @@ Description: Account for filesystem namespace having its own prefix.  The update
          if newval:
              f.write('1')
          else:
-@@ -197,14 +206,14 @@
+@@ -197,14 +216,14 @@
                               "CPU exclusive flag")
  
      def getmemxlsv(self): 
@@ -101,7 +127,7 @@ Description: Account for filesystem namespace having its own prefix.  The update
          if newval:
              f.write('1')
          else:
-@@ -214,6 +223,7 @@
+@@ -214,6 +233,7 @@
                               "Memory exclusive flag")
  
      def gettasks(self):
@@ -109,7 +135,7 @@ Description: Account for filesystem namespace having its own prefix.  The update
          f = file(CpuSet.basepath+self.path+"/tasks")
          lst = []
          for task in f: lst.append(task[:-1])
-@@ -229,6 +239,7 @@
+@@ -229,6 +249,7 @@
              prog = False
          for task in tasklist:
              try:
@@ -117,3 +143,8 @@ Description: Account for filesystem namespace having its own prefix.  The update
                  f = file(CpuSet.basepath+self.path+"/tasks",'w')
                  f.write(task)
                  f.close()
+@@ -513,4 +534,3 @@
+         print 'Found "cantfindmenoway??!? -> ', node
+     except CpusetException, err:
+         print 'Caught exeption for non-existant set (correctly)-> ', err
+-
